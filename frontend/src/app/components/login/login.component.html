@@ -1,0 +1,82 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input id="email" formControlName="email" type="email" class="form-control" placeholder="name@example.com" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input id="password" formControlName="password" type="password" class="form-control" />
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    
+                    <!-- Enlace para recuperar contraseña -->
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-link p-0" (click)="openForgotPasswordModal()">
+                            ¿Olvidaste tu contraseña?
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para recuperar contraseña -->
+<div class="modal" [class.show]="showForgotPasswordModal" [style.display]="showForgotPasswordModal ? 'block' : 'none'" *ngIf="showForgotPasswordModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Recuperar Contraseña</h5>
+                <button type="button" class="btn-close" (click)="closeForgotPasswordModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()">
+                    <div class="mb-3">
+                        <label for="forgotEmail" class="form-label">Ingresa tu correo electrónico:</label>
+                        <input 
+                            id="forgotEmail" 
+                            formControlName="email" 
+                            type="email" 
+                            class="form-control" 
+                            [class.is-invalid]="forgotPasswordForm.get('email')?.invalid && forgotPasswordForm.get('email')?.touched"
+                            placeholder="nombre@ejemplo.com" 
+                        />
+                        <div class="invalid-feedback" *ngIf="forgotPasswordForm.get('email')?.invalid && forgotPasswordForm.get('email')?.touched">
+                            <div *ngIf="forgotPasswordForm.get('email')?.errors?.['required']">El email es requerido</div>
+                            <div *ngIf="forgotPasswordForm.get('email')?.errors?.['email']">Ingresa un email válido</div>
+                        </div>
+                    </div>
+                    <p class="text-muted small">Te enviaremos un enlace para restablecer tu contraseña.</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeForgotPasswordModal()">
+                    Cancelar
+                </button>
+                <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    (click)="onForgotPasswordSubmit()"
+                    [disabled]="forgotPasswordForm.invalid || isSubmittingForgotPassword"
+                >
+                    <span *ngIf="isSubmittingForgotPassword" class="spinner-border spinner-border-sm me-2"></span>
+                    {{ isSubmittingForgotPassword ? 'Enviando...' : 'Enviar enlace' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Backdrop del modal -->
+<div class="modal-backdrop fade show" *ngIf="showForgotPasswordModal" (click)="closeForgotPasswordModal()"></div>
