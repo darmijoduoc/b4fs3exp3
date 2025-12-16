@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <groupId>cl.duocuc.darmijo</groupId>
-    <artifactId>exp2</artifactId>
+    <artifactId>exp3</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>users</name>
     <description>Fullstack III Exp 1</description>

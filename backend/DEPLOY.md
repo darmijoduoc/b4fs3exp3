@@ -14,12 +14,17 @@ docker-compose up -d
 
 ### Despliegue Manual
 ```bash
-docker build -t exp2-backend:latest . && \
-docker run -d --name exp2-backend -p 8080:8080 \
+
+# Detener y eliminar contenedor previo
+docker stop exp3-backend 2>/dev/null || true
+docker rm exp3-backend 2>/dev/null || true
+
+docker build -t exp3-backend:latest . && \
+docker run -d --name exp3-backend -p 8080:8080 \
   -e SPRING_DATASOURCE_URL=jdbc:oracle:thin:@gibi3xseta997y7i_tp \
   -e SPRING_DATASOURCE_USERNAME=ADMIN \
   -e SPRING_DATASOURCE_PASSWORD=aWxpYqvej@bUin3P!tbP \
-  exp2-backend:latest
+  exp3-backend:latest
 ```
 
 ---
@@ -28,16 +33,7 @@ docker run -d --name exp2-backend -p 8080:8080 \
 
 ```bash
 # Ver logs
-docker logs -f exp2-backend
-
-# Reiniciar
-docker-compose restart
-
-# Detener
-docker-compose down
-
-# Reconstruir
-docker-compose up -d --build
+docker logs -f exp3-backend
 
 # Verificar
 curl http://localhost:8080/authenticate
@@ -52,12 +48,12 @@ curl http://localhost:8080/authenticate
 docker ps -a
 
 # Ver logs de error
-docker logs exp2-backend
+docker logs exp3-backend
 
 # Entrar al contenedor
-docker exec -it exp2-backend sh
+docker exec -it exp3-backend sh
 
 # Limpiar todo
-docker stop exp2-backend && docker rm exp2-backend && docker rmi exp2-backend:latest
+docker stop exp3-backend && docker rm exp3-backend && docker rmi exp3-backend:latest
 ```
 

@@ -4,8 +4,8 @@
 
 set -e
 
-APP_NAME="exp2-backend"
-IMAGE_NAME="exp2-backend:latest"
+APP_NAME="exp3-backend"
+IMAGE_NAME="exp3-backend:latest"
 PORT=8080
 
 echo "🚀 Iniciando despliegue de $APP_NAME..."
